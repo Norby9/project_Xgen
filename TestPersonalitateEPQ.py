@@ -1,4 +1,5 @@
 import tkinter as tk
+import os
 
 EXTROVERSIA, LIE, NEUROTICISM, PSIHOTICISM = 0.0, 0.0, 0.0, 0.0
 rEXTROVERSIA, rLIE, rNEUROTICISM, rPSIHOTICISM = 0.0, 0.0, 0.0, 0.0
@@ -89,7 +90,7 @@ Descriere = "Interpretate\n" \
             "Răspunsurile oferite de subiect primește un punctaj care se calculează pentru fiecare scală și se " \
             "compara cu mediile populaționale, obținându-se informații legate " \
             "de extroversia, introversia, nevroticismul și psihoticismul subiecților, dar și legate de tendințele " \
-            "de a da răspunsuri favorabile (scala L,""de micniună"" în care " \
+            "de a da răspunsuri favorabile (scala L,\"de micniună\" în care " \
             "sunt incluși 9 itemi și care prezintă comportamente sociale negative dar pe care majoritatea populației " \
             "le încalca frecvent, în comportamentul informal).\n\n" \
             "Descrierea factorilor\n" \
@@ -115,11 +116,11 @@ Descriere = "Interpretate\n" \
             "tulburări nevrotice. Predispozițiile amintite nu se " \
             "confundă cu adevarata depresie nervoasă. Un subiect cu nota N ridicată se poate adapta totuși în mod " \
             "adecvat exigențelor muncii, ale vieții de familie etc. " \
-            "Nevroticul este descris de Eysenck în următorii termeni: ""subiect nevrotic, în medie este o persoană " \
+            "Nevroticul este descris de Eysenck în următorii termeni: \"subiect nevrotic, în medie este o persoană " \
             "defectivă mental și corporal, sub medie ca inteligența, " \
             "voință, control emoțional, acuitate senzorială și capacitate de a se afirma. Este sugestibil, lipsit de " \
             "persistență și lent în gândire și acțiune, nesociabil " \
-            "și tinde să reprime faptele neplăcute"".\n" \
+            "și tinde să reprime faptele neplăcute\".\n" \
             "Stabil emoțional (la polul pozotiv), sunt subiecții cu notele scazute la scara N, note specifice " \
             "persoanelor stabile d.p.d.v. emoțional. Caracteristic acestora " \
             "este gradul ridicat de integrare, puterea eului, autocontrolul ridicat.\n\n" \
@@ -136,7 +137,7 @@ Descriere = "Interpretate\n" \
 
 
 def onclick(args):
-    global i, EXTROVERSIA, LIE, NEUROTICISM, PSIHOTICISM, rEXTROVERSIA, rLIE, rNEUROTICISM, rPSIHOTICISM
+    global i, EXTROVERSIA, LIE, NEUROTICISM, PSIHOTICISM, rEXTROVERSIA, rLIE, rNEUROTICISM, rPSIHOTICISM, RASPUNS
     if args == 1:
         EXTROVERSIA = 20.28
         LIE = 24.68
@@ -171,7 +172,7 @@ def onclick(args):
         i += 1
         if i == 80:
             frame2.destroy()
-            RASPUNS = "Scor obținut:\nLIE: " + str("%.3f" % LIE) + "\nEXTROVERSIA: " + str("%.3f" % EXTROVERSIA) + "\nNEUROTICISM: " + str("%.3f" % NEUROTICISM) + "\nPSIHOTICISM: " + str("%.3f" % PSIHOTICISM) + "\n" + "\nScoruriel T - standardizate\n  <30\trezultate extrem de mici\n30-40\trezultate mici\n40-60\trezultate medii\n60-70\trezultate mari\n  >70\trezultate foarte mari\n\n"
+            RASPUNS = "Scor obtinut:\nLIE: " + str("%.3f" % LIE) + "\nEXTROVERSIA: " + str("%.3f" % EXTROVERSIA) + "\nNEUROTICISM: " + str("%.3f" % NEUROTICISM) + "\nPSIHOTICISM: " + str("%.3f" % PSIHOTICISM) + "\n" + "\nScoruriel T - standardizate\n  <30\trezultate extrem de mici\n30-40\trezultate mici\n40-60\trezultate medii\n60-70\trezultate mari\n  >70\trezultate foarte mari\n\n"
             label_r.config(text=RASPUNS)
             frame3.pack(fill=tk.BOTH, expand=True)
         lable_i.config(text=Intrebari[i])
@@ -187,10 +188,15 @@ def onclick(args):
         i += 1
         if i == 80:
             frame2.destroy()
-            RASPUNS = "Scor obținut:\nLIE: " + str("%.3f" % LIE) + "\nEXTROVERSIA: " + str("%.3f" % EXTROVERSIA) + "\nNEUROTICISM: " + str("%.3f" % NEUROTICISM) + "\nPSIHOTICISM: " + str("%.3f" % PSIHOTICISM) + "\n" + "\nScoruriel T - standardizate\n  <30\trezultate extrem de mici\n30-40\trezultate mici\n40-60\trezultate medii\n60-70\trezultate mari\n  >70\trezultate foarte mari\n\n"
+            RASPUNS = "Scor obtinut:\nLIE: " + str("%.3f" % LIE) + "\nEXTROVERSIA: " + str("%.3f" % EXTROVERSIA) + "\nNEUROTICISM: " + str("%.3f" % NEUROTICISM) + "\nPSIHOTICISM: " + str("%.3f" % PSIHOTICISM) + "\n" + "\nScorurile T - standardizate\n  <30\trezultate extrem de mici\n30-40\trezultate mici\n40-60\trezultate medii\n60-70\trezultate mari\n  >70\trezultate foarte mari\n\n"
             label_r.config(text=RASPUNS)
             frame3.pack(fill=tk.BOTH, expand=True)
         lable_i.config(text=Intrebari[i])
+    elif args == 5:
+        file = open("Rezultat.txt", 'w+')
+        file.write(RASPUNS)
+        file.close()
+        os.startfile("Rezultat.txt")
 
 
 window = tk.Tk()
@@ -208,18 +214,19 @@ button_b = tk.Button(frame1, text="Bărbat", width=25, height=5, bg="blue", fg="
 button_f = tk.Button(frame1, text="Femeie", width=25, height=5, bg="pink", fg="black", command=lambda: onclick(2))
 button_da = tk.Button(frame2, text="DA", width=25, height=5, bg="green", fg="white", command=lambda: onclick(3))
 button_nu = tk.Button(frame2, text="NU", width=25, height=5, bg="red", fg="white", command=lambda: onclick(4))
+button_safe = tk.Button(frame3, text="SALVEAZA REZULTAT", width=25, height=5, bg="black", fg="white", command=lambda: onclick(5))
 
 frame1.pack(fill=tk.BOTH, expand=True)
 lable_s.pack(fill=tk.BOTH, expand=True)
 button_b.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
 button_f.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
 
-
 lable_i.pack(fill=tk.BOTH, expand=True)
 button_da.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
 button_nu.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
 
+lable_d.pack(fill=tk.BOTH, side=tk.RIGHT, expand=True)
+button_safe.pack(fill=tk.BOTH,side=tk.BOTTOM, expand=True)
 label_r.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
-lable_d.pack(fill=tk.BOTH, expand=True)
 
 window.mainloop()
